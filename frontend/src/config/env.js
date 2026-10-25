@@ -1,11 +1,7 @@
-const dataSource = import.meta.env.VITE_DATA_SOURCE || 'http';
+const dataSource = import.meta.env.VITE_DATA_SOURCE || 'mock';
 
-if (import.meta.env.PROD && dataSource !== 'http') {
-    throw new Error(
-        'Production build must use VITE_DATA_SOURCE=http. Mock data is not allowed in production.'
-    );
-}
-
+// Demo/mock content is allowed for Vercel preview or demo deployments.
+// Set VITE_DATA_SOURCE=http in a real production backend-backed deployment.
 export const env = {
     dataSource,
     apiBaseUrl: import.meta.env.VITE_API_BASE_URL || '/api/v1',
