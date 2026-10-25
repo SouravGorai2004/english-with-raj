@@ -1,0 +1,35 @@
+.sl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.sl a {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    background-image: none;
+    color: var(--text);
+    text-decoration: none;
+    transition: transform var(--dur-base) var(--ease-out), color var(--dur-fast),
+    border-color var(--dur-fast), box-shadow var(--dur-base);
+}
+.sl a:hover,
+.sl a:focus-visible {
+    transform: translateY(-4px);
+    color: #fff;
+    border-color: transparent;
+    background-image: var(--brand);
+    box-shadow: var(--shadow-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sl a:hover,
+    .sl a:focus-visible { transform: none; }
+}

@@ -1,0 +1,141 @@
+.gx { padding-bottom: var(--space-4); }
+
+.gx-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block: var(--space-5) var(--space-4);
+}
+.gx-head .eyebrow { margin-bottom: var(--space-2); }
+.gx-head h1 { font-size: var(--text-2xl); margin: 0; }
+
+/* The whole wall fits inside one screen, however many images exist. */
+.gx-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: clamp(420px, calc(100vh - var(--header-h) - 150px), 920px);
+    height: clamp(420px, calc(100svh - var(--header-h) - 150px), 920px);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+}
+
+.gx-row {
+    position: relative;
+    flex: 1 1 0;
+    min-height: 0;
+    padding-block: 8px;
+    overflow-x: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
+}
+.gx-row:hover,
+.gx-row:focus-within { z-index: 3; }
+
+.gx-track {
+    display: flex;
+    width: max-content;
+    height: 100%;
+    animation: gx-scroll var(--dur, 40s) linear infinite;
+    will-change: transform;
+}
+.gx-row:hover .gx-track,
+.gx-row:focus-within .gx-track { animation-play-state: paused; }
+
+@keyframes gx-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+}
+
+.gx-half {
+    display: flex;
+    flex: none;
+    height: 100%;
+    gap: 10px;
+    margin: 0;
+    padding: 0 10px 0 0;
+    list-style: none;
+}
+
+.gx-tile { position: relative; flex: none; height: 100%; }
+.gx-tile:hover,
+.gx-tile:focus-within { z-index: 5; }
+
+.gx-btn {
+    position: relative;
+    display: block;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-alt);
+    transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+.gx-btn img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease-out);
+    user-select: none;
+}
+.gx-btn:hover,
+.gx-btn:focus-visible {
+    transform: scale(1.12);
+    box-shadow: var(--shadow-2);
+}
+.gx-btn:hover img,
+.gx-btn:focus-visible img { transform: scale(1.06); }
+
+.gx-cap {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: var(--space-6) var(--space-4) var(--space-3);
+    color: #fff;
+    font-size: var(--text-sm);
+    text-align: left;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.72));
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity var(--dur-base), transform var(--dur-base) var(--ease-out);
+}
+.gx-btn:hover .gx-cap,
+.gx-btn:focus-visible .gx-cap { opacity: 1; transform: none; }
+
+.gx-play {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.gx-hint { margin: var(--space-3) auto 0; font-size: var(--text-xs); color: var(--text-muted); }
+
+@media (hover: none) {
+    .gx-cap { opacity: 1; transform: none; }
+}
+
+@media (max-width: 640px) {
+    .gx-stage { height: clamp(380px, calc(100svh - var(--header-h) - 190px), 760px); }
+    .gx-head { padding-block: var(--space-4) var(--space-3); }
+}
+
+/* Reduced motion: no moving rows. Each row becomes a calm, swipeable strip. */
+@media (prefers-reduced-motion: reduce) {
+    .gx-stage { -webkit-mask-image: none; mask-image: none; }
+    .gx-row { overflow-x: auto; overflow-y: hidden; }
+    .gx-track { animation: none !important; }
+    .gx-half[aria-hidden='true'],
+    .gx-rep { display: none; }
+    .gx-btn:hover,
+    .gx-btn:focus-visible { transform: none; }
+}

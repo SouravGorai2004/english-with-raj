@@ -1,0 +1,75 @@
+.ft {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    margin-top: var(--space-9);
+    min-height: clamp(150px, 15vw, 230px);
+    padding: var(--space-6) var(--gutter);
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+}
+
+/* Brand name in the background */
+.ft-mark {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 10.5vw, 11.5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+    color: transparent;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--text) 22%, transparent), color-mix(in srgb, var(--text) 4%, transparent));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* The only content: one row of links */
+.ft-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2) var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ft-link {
+    display: inline-block;
+    padding-block: 0.35rem;
+    color: var(--text);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 2px;
+    transition: background-size var(--dur-base) var(--ease-out), color var(--dur-fast);
+}
+.ft-link:hover,
+.ft-link:focus-visible {
+    color: var(--accent);
+    background-size: 100% 2px;
+}
+
+@media (max-width: 640px) {
+    .ft {
+        margin-top: var(--space-8);
+        min-height: 140px;
+        padding-block: var(--space-5);
+        /* keeps links clear of the floating social button */
+        padding-bottom: 76px;
+    }
+    .ft-nav ul { gap: var(--space-1) var(--space-5); }
+}
